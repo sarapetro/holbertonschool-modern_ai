@@ -1,5 +1,9 @@
+#!/usr/bin/env python3
+"""Handle missing values in TotalCharges."""
+
+
 def clean_total_charges(df, method='drop'):
-    """Handle missing values in TotalCharges."""
+    """Handle missing values using the selected method."""
 
     if method == 'drop':
         df = df.dropna(subset=['TotalCharges'])
@@ -11,5 +15,8 @@ def clean_total_charges(df, method='drop'):
     elif method == 'impute':
         values = df['MonthlyCharges'] * df['tenure']
         df['TotalCharges'] = df['TotalCharges'].fillna(values)
+
+    else:
+        raise ValueError("Invalid method")
 
     return df
