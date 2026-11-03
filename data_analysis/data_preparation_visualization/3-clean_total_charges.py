@@ -4,6 +4,7 @@
 
 def clean_total_charges(df, method='drop'):
     """Handle missing values using the selected method."""
+    df = df.copy()
 
     if method == 'drop':
         df = df.dropna(subset=['TotalCharges'])
