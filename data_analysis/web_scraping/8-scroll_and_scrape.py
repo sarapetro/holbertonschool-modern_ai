@@ -3,7 +3,6 @@
 
 import time
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 
 
 def scroll_and_scrape(url, scroll_pause=2.0):
@@ -40,16 +39,16 @@ def scroll_and_scrape(url, scroll_pause=2.0):
 
             last_height = new_height
 
-        cards = driver.find_elements(By.CSS_SELECTOR, "div.thumbnail")
+        cards = driver.find_elements("css selector", "div.thumbnail")
 
         for card in cards:
             title_element = card.find_element(
-                By.CSS_SELECTOR, "a.title"
+                "css selector", "a.title"
             )
             title = title_element.get_attribute("title")
 
             price = card.find_element(
-                By.CSS_SELECTOR, "h4.price"
+                "css selector", "h4.price"
             ).text
 
             key = (title, price)
@@ -60,12 +59,11 @@ def scroll_and_scrape(url, scroll_pause=2.0):
             seen.add(key)
 
             description = card.find_element(
-                By.CSS_SELECTOR, "p.description"
+                "css selector", "p.description"
             ).text
 
             stars = card.find_elements(
-                By.CSS_SELECTOR,
-                ".ratings p.ws-icon.ws-icon-star"
+                "css selector", ".ratings p.ws-icon.ws-icon-star"
             )
 
             products.append({
