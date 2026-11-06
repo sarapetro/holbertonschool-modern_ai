@@ -9,7 +9,7 @@ def plot_missingness(df):
     """Plot the positions of missing values in a DataFrame."""
     rows, cols = np.where(df.isnull())
 
-    plt.figure(figsize=(20, 10))
+    plt.figure(figsize=(12, 6))
     plt.scatter(df.index.take(rows), cols, marker='|')
     plt.yticks(range(len(df.columns)), df.columns)
     plt.title('Missingness Plot')

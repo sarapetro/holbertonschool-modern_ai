@@ -10,7 +10,8 @@ def plot_numeric_vs_churn(df, col):
     churn_yes = df.loc[df['Churn'] == 'Yes', col].dropna()
 
     plt.figure(figsize=(12, 8))
-    plt.hist([churn_no, churn_yes], bins=30, label=['No', 'Yes'])
+    plt.hist(churn_no, bins=30, alpha=0.7, label='No')
+    plt.hist(churn_yes, bins=30, alpha=0.7, label='Yes')
     plt.title('{} Distribution by Churn'.format(col))
     plt.xlabel(col)
     plt.legend(title='Churn', loc='upper center')
