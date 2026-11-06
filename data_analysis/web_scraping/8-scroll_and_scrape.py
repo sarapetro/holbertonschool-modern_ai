@@ -11,6 +11,7 @@ def scroll_and_scrape(url, scroll_pause=2.0):
     options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
     options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
 
     driver = webdriver.Chrome(options=options)
     products = []
@@ -18,7 +19,6 @@ def scroll_and_scrape(url, scroll_pause=2.0):
 
     try:
         driver.get(url)
-        time.sleep(scroll_pause)
 
         last_height = driver.execute_script(
             "return document.body.scrollHeight"
@@ -28,11 +28,14 @@ def scroll_and_scrape(url, scroll_pause=2.0):
             driver.execute_script(
                 "window.scrollTo(0, document.body.scrollHeight)"
             )
-            time.sleep(scroll_pause)
 
-            new_height = driver.execute_script(
-                "return document.body.scrollHeight"
-            )
+            end = time.time() + scroll_pause
+            new_height = last_height
+            while time.time() < end and new_height == last_height:
+                time.sleep(0.1)
+                new_height = driver.execute_script(
+                    "return document.body.scrollHeight"
+                )
 
             if new_height == last_height:
                 break
