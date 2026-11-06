@@ -15,12 +15,17 @@ def encode_features(df):
         'Partner', 'Dependents', 'PaperlessBilling', 'SeniorCitizen'
     ]
     binary_encoder = preprocessing.OrdinalEncoder(
-        categories=[['No', 'Yes'] for _ in binary_columns]
+        categories=[['No', 'Yes']]
     )
-    df[binary_columns] = binary_encoder.fit_transform(df[binary_columns])
+    for column in binary_columns:
+        df[column] = binary_encoder.fit_transform(
+            df[[column]]
+        ).ravel().astype(int)
 
     tenure_encoder = preprocessing.OrdinalEncoder()
-    df[['TenureGroup']] = tenure_encoder.fit_transform(df[['TenureGroup']])
+    df['TenureGroup'] = tenure_encoder.fit_transform(
+        df[['TenureGroup']]
+    ).ravel().astype(int)
 
     one_hot_columns = ['Contract', 'PaymentMethod']
     one_hot_encoder = preprocessing.OneHotEncoder(drop='first')

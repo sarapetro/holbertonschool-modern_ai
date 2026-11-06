@@ -16,7 +16,7 @@ def plot_continuous_distributions(df, columns_to_plot=None):
 
     _, axes = plt.subplots(
         len(columns_to_plot), 2,
-        figsize=(15, 2.5 * len(columns_to_plot)), squeeze=False
+        figsize=(12, 2 * len(columns_to_plot)), squeeze=False
     )
 
     for row, column in enumerate(columns_to_plot):
@@ -27,7 +27,7 @@ def plot_continuous_distributions(df, columns_to_plot=None):
         )
         if len(values) > 1 and values.nunique() > 1:
             density = stats.gaussian_kde(values)
-            points = np.linspace(values.min(), values.max(), 1000)
+            points = np.linspace(values.min(), values.max(), 200)
             histogram_ax.plot(points, density(points), color='red',
                               linestyle='--')
         histogram_ax.set_title('{} Histogram + KDE'.format(column))
