@@ -7,4 +7,3 @@ from sklearn import linear_model
 def Linear_Regression():
     """Return an untrained LinearRegression model."""
     return linear_model.LinearRegression()
-    
